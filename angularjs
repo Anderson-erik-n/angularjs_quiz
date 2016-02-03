@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+background-image: url("https://raw.githubusercontent.com/Anderson-erik-n/201R--Lab2/master/angularjs_temple_background.jpg");
+
+background-position: 0px 1600px;
+
+}
+
+.poop
+{
+margin: 10px;
+        padding-right: 10px;
+padding-left: 10px;
+padding-bottom: 10px;
+padding-top: 10px;
+right: 175px;
+top: 50px;
+    width: 300px;
+    border: 3px solid;
+        border-color: rgb(255,255,255);
+ position: absolute;
+}
+
+#header
+{
+text-align: center;
+
+}
+
+
+</style>
+</head>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<h1 id = header>Family History</h1>
+
+<div class="poop" >
+<body ng-app="myApp" ng-controller="todoCtrl">
+
+<form ng-submit="todoAdd()">
+    <input type="text" ng-model="todoInput" size="50" placeholder="Add New Name of Deceased Ancestor">
+    <input type="submit" value="Add Name to queue">
+</form>
+
+<br>
+
+<div ng-repeat="x in todoList">
+    <input type="checkbox" ng-model="x.done"> <span ng-bind="x.todoText"></span>
+</div>
+
+<p><button ng-click="remove()">Remove marked</button></p>
+
+<script>
+var app = angular.module('myApp', []); 
+app.controller('todoCtrl', function($scope) {
+    $scope.todoList = [{todoText:'John Doe', done:false}];
+
+    $scope.todoAdd = function() {
+        $scope.todoList.push({todoText:$scope.todoInput, done:false});
+        $scope.todoInput = "";
+    };
+
+    $scope.remove = function() {
+        var oldList = $scope.todoList;
+        $scope.todoList = [];
+        angular.forEach(oldList, function(x) {
+            if (!x.done) $scope.todoList.push(x);
+        });
+    };
+});
+</script>
+</div>
+</body>
+</html>
